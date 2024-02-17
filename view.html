@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>シャッフル問題プレーヤー</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        header{
+            background-color: black;
+            color: white;
+            padding: 1%;
+            text-align: center;
+        }
+        .content{
+            display: flex;
+            justify-content: space-around;
+        }
+        .menu{
+            margin: 1%;
+            padding: 1%;
+            border: 3px solid black;
+            width: 60%;
+            margin: 1%;
+        }
+        .info{
+            padding: 1%;
+            margin: 1%;
+            border: 3px solid black;
+            flex: 1;
+        }
+        button{
+            width: 10em;
+            height: 3em;
+            background-color: #0071bd;
+            border: 0;
+            color: white;
+            border-radius: 0.5em;
+        }
+        button:active{
+            background-color: #005186;
+        }
+        .finish{
+            background-color: black;
+        }
+        .finish:active{
+            background-color: rgb(80, 80, 80);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>シャッフル問題プレーヤー</h2>
+    </header>
+    <noscript>JavaScriptが無効になっています。このアプリケーションは、JavaScriptが有効でないと正常に（あるいは全く）動作しません。</noscript>
+    <div class="content">
+        <div class="menu">
+            <div id="step1">
+                <h1>1.ファイルを指定する</h1>
+                <p>ファイルをアップロードしてください。</p>
+                <form>
+                    <input id="file" type="file">
+                </form>
+            </div>
+            <div id="step2" style="display: none;">
+                <h1>2.問題一覧</h1>
+                <div id="quests"></div>
+                <button onclick="beforeq()">前の問題</button>
+                <button onclick="nextq()">次の問題</button>
+            </div>
+            <br>
+            <button onclick="location.href='./index.html'" class="finish">終了</button>
+        </div>
+        <div class="info">
+            <h1>お知らせ</h1>
+        </div>
+    </div>
+    <script>
+        let questions;
+        let shuffleq;
+        let num = 0;
+        document.getElementById("file").addEventListener('change',function(e){
+            let filereader = new FileReader();
+            filereader.addEventListener('load', function(e) {
+                questions = e.target.result;
+                csvconv();
+                document.getElementById("step1").style = "display:none;";
+                document.getElementById("step2").style = "display:block;";
+            });
+            filereader.readAsText(e.target.files[0]);
+        });
+        function csvconv(){
+            let csvArray =[];
+            let lines = questions.split(/\r\n|\n/);
+            for(let i = 0; i < lines.length; ++i){
+                let cells = lines[i].split(",");
+                if(cells.length != 1){
+                    csvArray.push(cells);
+                }
+            }
+            const shuffleArray = (array) => {
+            const cloneArray = [...array];
+            const result = cloneArray.reduce((_,cur,idx) => {
+                let rand = Math.floor(Math.random() * (idx + 1));
+                cloneArray[idx] = cloneArray[rand]
+                cloneArray[rand] = cur;
+                return cloneArray
+            })
+            return result;
+            }
+            shuffleq = shuffleArray(csvArray);
+            let data = shuffleq[num];
+            data = (String(data)).split(',');
+            let banme = num+1;
+            let qsuu = shuffleq.length;
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<br><h2>"+banme+"/"+qsuu+"番目の問題</h2>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<br><h3>問題"+data[0]+"</h3>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<h4>問題文:"+data[1]+"</h4>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<h5>語群など:"+data[2]+"</h5><br>");
+        }
+        function nextq(){
+            while(document.getElementById("quests").firstChild){
+                document.getElementById("quests").removeChild(document.getElementById("quests").firstChild);
+            }
+            num = num + 1;
+            let data = shuffleq[num];
+            data = (String(data)).split(',');
+            let banme = num+1;
+            let qsuu = shuffleq.length;
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<br><h2>"+banme+"/"+qsuu+"番目の問題</h2>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<br><h3>問題"+data[0]+"</h3>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<h4>問題文:"+data[1]+"</h4>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<h5>語群など:"+data[2]+"</h5><br>");
+        }
+        function beforeq(){
+            while(document.getElementById("quests").firstChild){
+                document.getElementById("quests").removeChild(document.getElementById("quests").firstChild);
+            }
+            num = num - 1;
+            let data = shuffleq[num];
+            data = (String(data)).split(',');
+            let banme = num+1;
+            let qsuu = shuffleq.length;
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<br><h2>"+banme+"/"+qsuu+"番目の問題</h2>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<br><h3>問題"+data[0]+"</h3>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<h4>問題文:"+data[1]+"</h4>");
+            document.getElementById("quests").insertAdjacentHTML("beforeend","<h5>語群など:"+data[2]+"</h5><br>");
+        }
+    </script>
+</body>
+</html>

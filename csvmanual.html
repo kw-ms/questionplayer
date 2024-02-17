@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>シャッフル問題プレーヤー</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        header{
+            background-color: black;
+            color: white;
+            padding: 1%;
+            text-align: center;
+        }
+        .content{
+            display: flex;
+            justify-content: space-around;
+        }
+        .menu{
+            margin: 1%;
+            padding: 1%;
+            border: 3px solid black;
+            width: 60%;
+            margin: 1%;
+        }
+        .info{
+            padding: 1%;
+            margin: 1%;
+            border: 3px solid black;
+            flex: 1;
+        }
+        button{
+            width: 10em;
+            height: 3em;
+            background-color: #0071bd;
+            border: 0;
+            color: white;
+            border-radius: 0.5em;
+        }
+        button:active{
+            background-color: #005186;
+        }
+        .button{
+            width: 100%;
+        }
+        .finish{
+            background-color: black;
+        }
+        .finish:active{
+            background-color: rgb(80, 80, 80);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>シャッフル問題プレーヤー</h2>
+    </header>
+    <noscript>JavaScriptが無効になっています。このアプリケーションは、JavaScriptが有効でないと正常に（あるいは全く）動作しません。</noscript>
+    <div class="content">
+        <div class="menu">
+            <h1>問題データCSVを手動で作成する</h1>
+            <h2>1.ソフトを用意する</h2>
+            <p>ExcelやスプレッドシートなどのCSV形式のファイルの編集に対応した表計算ソフトを用意します。</p>
+            <h2>2.問題を編集する</h2>
+            <p>テンプレートは<a href="./template.csv" download>こちら</a></p>
+            <p>まず、上記のリンクより、テンプレートをダウンロードします。<br>
+            つぎに、ダウンロードしたファイルを、表計算ソフトあるいはメモ帳などで開きます。</p>
+            <h3>操作手順</h3>
+            <p>ファイルを開くと、以下のような画面になります。</p>
+            <p><img src="./1.jpg" width="100%"></p>
+            <p>A列に問題の通し番号（上から1,2,3,4,5…）、B列に問題文、C列に語群など（省略可）を入れていきます。（最初からあるサンプルの問題は削除してください。）</p>
+            <p><img src="./2.jpg" width="100%"></p>
+            <p>終わったら、CSV形式のファイルとして保存します。<br>作成したファイルは、<a href="./view.html">問題データを閲覧</a>からそのまま使用できます。</p>
+            <button onclick="location.href='./index.html'" class="finish">戻る</button>
+        </div>
+        <div class="info">
+            <h1>お知らせ</h1>
+        </div>
+    </div>
+</body>
+</html>

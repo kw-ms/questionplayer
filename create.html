@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>シャッフル問題プレーヤー</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        header{
+            background-color: black;
+            color: white;
+            padding: 1%;
+            text-align: center;
+        }
+        .content{
+            display: flex;
+            justify-content: space-around;
+        }
+        .menu{
+            margin: 1%;
+            padding: 1%;
+            border: 3px solid black;
+            margin: 1%;
+            width: 60%;
+        }
+        .info{
+            padding: 1%;
+            margin: 1%;
+            border: 3px solid black;
+            flex: 1;
+        }
+        button{
+            width: 10em;
+            height: 3em;
+            background-color: #0071bd;
+            border: 0;
+            color: white;
+            border-radius: 0.5em;
+        }
+        button:active{
+            background-color: #005186;
+        }
+        .finish{
+            background-color: black;
+        }
+        .finish:active{
+            background-color: rgb(80, 80, 80);
+        }
+        .next{
+            background-color: green;
+        }
+        .next:active{
+            background-color: rgb(129, 207, 129);
+        }
+        .center{
+            text-align: center;
+        }
+        .q{
+            width: 100%;
+        }
+        .n{
+            width: 10%;
+        }
+        .qs{
+            width: 60%;
+        }
+        .h{
+            width: 30%;
+        }
+        .short{
+            width: 3em;
+        }
+        .input{
+            height: 2em;
+        }
+        .long{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>シャッフル問題プレーヤー</h2>
+    </header>
+    <noscript>JavaScriptが無効になっています。このアプリケーションは、JavaScriptが有効でないと正常に（あるいは全く）動作しません。</noscript>
+    <div class="content">
+        <div class="menu">
+            <div id="step1">
+            <h1>1.問題データを作成する</h1>
+            <p>問題データの作成を開始します。</p>
+            <p>下のテーブルに、問題の情報を追加してください。完了したら、次へをクリックしてください。</p>
+            <table border="1" class="q" id="table">
+                <tr>
+                    <th class="n">通し番号</th>
+                    <th class="qs">問題文</th>
+                    <th class="h">語群など共に表示するもの</th>
+                </tr>
+            </table>
+            <div>
+                <form>
+                    通し番号：<input type="text" disabled placeholder="自動" class="short input"><br>
+                    問題文：<br><input type="text" class="input long" id="q"><br>
+                    語群など：<br><input type="text" class="input long" id="hint"><br>
+                    挿入後も保持:<input type="checkbox" id="ifkeep"><br>
+                </form>
+                <button onclick="sounyu()">挿入する</button>
+                <button onclick="deletetable()">1番下の列を削除する</button>
+            </div>
+            </div>
+            <div id="step2" style="display:none;">
+                <h1>2.問題データを変換して保存する</h1>
+                <p>問題データを変換しました。ダウンロードをクリックしてください。</p>
+                <br>
+                <button onclick="download()" id="finishm">ダウンロード</button>
+            </div>
+            <div id="step3" style="display:none;">
+                <h1>3.問題データを使用する</h1>
+                <p>問題データを使用するには、問題データを閲覧に移動し、いまダウンロードしたファイルをアップロードしてください。</p>
+                <a href="./view.html">問題データを閲覧へ移動</a>
+            </div>
+            <br>
+            <button onclick="next()" class="next" id="next" style="display: none;">次へ</button>
+            <button onclick="finish()" class="finish">終了</button>
+        </div>
+        <div class="info">
+            <h1>お知らせ</h1>
+        </div>
+    </div>
+    <script>
+        let blob;
+        let a;
+        let url;
+        let bom;
+        function download(){
+            a.href = url;
+            a.download = "question.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+            document.getElementById("step2").style = "display:none;";
+            document.getElementById("step3").style = "display:block;";
+        }
+        function next(){
+            document.getElementById("step2").style = "display:block;";
+            document.getElementById("next").style = "display:none;";
+            let table = document.getElementById("table");
+            table.deleteRow(0);
+            let length = table.rows.length;
+            let csv = "";
+            for(let i = 0; i < length; i++){
+                csv = csv+table.rows[i].cells[0].innerHTML+","+table.rows[i].cells[1].innerHTML+","+table.rows[i].cells[2].innerHTML+"\n";
+            }
+            bom = new Uint8Array([0xef,0xbb,0xbf])
+            blob = new Blob([bom,csv],{type:"text/plain"});
+            url = URL.createObjectURL(blob);
+            a = document.createElement("a");
+            document.getElementById("step1").style = "display:none;";
+        }
+        function sounyu(){
+            if(document.getElementById("q").value == ""){
+                alert("問題文は入力必須です。");
+            }else{
+                let table = document.getElementById("table");
+                let length = table.rows.length - 1;
+                let tr = table.insertRow(-1);
+                let celln = table.rows[length].cells[0].innerHTML;
+                let cell1 = tr.insertCell(-1);
+                if(celln == "通し番号"){
+                    cell1.textContent = 1;
+                }else{
+                    cellnint = parseInt(celln);
+                    cell1.textContent = cellnint + 1;
+                    scrollBy(0,50);
+                }
+                let cell2 = tr.insertCell(-1);
+                cell2.textContent = document.getElementById("q").value;
+                let cell3 = tr.insertCell(-1);
+                cell3.textContent = document.getElementById("hint").value;
+                if(document.getElementById("ifkeep").checked == false){
+                    document.getElementById("q").value = "";
+                    document.getElementById("hint").value = "";
+                }
+                viewnext();
+            }
+        }
+        function deletetable(){
+            let table = document.getElementById("table");
+            let length = table.rows.length;
+            let deletehr = length - 1;
+            if(length == 1){
+                alert("最初の列は削除できません。");
+            }else{
+                table.deleteRow(deletehr);
+            }
+        }
+        function viewnext(){
+            document.getElementById("next").style = "display:inline;";
+        }
+        function finish(){
+            location.href='./index.html'
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+    "background-color": "white",
+    "short_name": "シャッフル問題プレーヤー",
+    "name": "シャッフル問題プレーヤー",
+    "display": "fullscreen",
+    "description": "簡単に問題をシャッフル",
+    "start_url": "index.html"
+}
