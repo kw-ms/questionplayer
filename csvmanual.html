@@ -20,11 +20,12 @@
             padding: 1%;
             text-align: center;
         }
-        .content{
+        @media screen and (orientation: landscape) {
+            .content{
             display: flex;
             justify-content: space-around;
-        }
-        .menu{
+            }
+            .menu{
             border-radius: 0.5em;
             border: 1px solid black;
             background-color: white;
@@ -32,6 +33,18 @@
             padding: 1%;
             width: 60%;
             margin: 1%;
+            }
+        }
+        @media screen and (orientation: portrait) {
+            .menu{
+            border-radius: 0.5em;
+            border: 1px solid black;
+            background-color: white;
+            margin: 1%;
+            padding: 1%;
+            width: 95%;
+            margin: 1%;
+            }
         }
         .info{
             border-radius: 0.5em;
@@ -86,7 +99,15 @@
             <button onclick="location.href='./index.html'" class="finish">戻る</button>
         </div>
         <div class="info">
-            <h1>お知らせ</h1>
+            <h1>お知らせ（2024.02.17 NEW）</h1>
+            <details>
+                <summary>レスポンシブデザインに対応しました。</summary>
+                <p>縦画面、横画面によって自動で配置が変わるようになりました。</p>
+            </details>
+            <details>
+                <summary>Github Pagesで公開しました。</summary>
+                <p>このアプリ、シャッフル問題プレーヤーをGithub Pagesでインターネット上に公開しました。ソースコードもGithubで公開しています。</p>
+            </details>
         </div>
     </div>
 </body>
