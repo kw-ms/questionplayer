@@ -12,6 +12,9 @@
         html,body{
             height: 100%;
         }
+        body{
+            background-color: rgb(224, 224, 224);
+        }
         header{
             background-color: black;
             color: white;
@@ -23,16 +26,20 @@
             justify-content: space-around;
         }
         .menu{
+            border-radius: 0.5em;
+            border: 1px solid black;
+            background-color: white;
             margin: 1%;
             padding: 1%;
-            border: 3px solid black;
             width: 60%;
             margin: 1%;
         }
         .info{
+            border-radius: 0.5em;
+            border: 1px solid black;
+            background-color: white;
             padding: 1%;
             margin: 1%;
-            border: 3px solid black;
             flex: 1;
         }
         button{
@@ -72,6 +79,7 @@
                 <button onclick="location.href='./view.html'">問題データをシャッフル閲覧</button>
                 <br><br>
                 <button onclick="location.href='./csvmanual.html'" class="finish">問題データを手動で作成</button>
+                <button onclick="location.href='./about.html'" class="finish">このアプリについて</button>
             </div>
         </div>
         <div class="info">
