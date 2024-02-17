@@ -193,8 +193,10 @@
             document.getElementById("step1").style = "display:none;";
         }
         function sounyu(){
-            if(document.getElementById("q").value == ""){
-                alert("問題文は入力必須です。");
+            q = document.getElementById("q").value;
+            hint = document.getElementById("hint").value;
+            if(document.getElementById("q").value == "" || q.includes(",") || hint.includes(",")){
+                alert("問題文は入力必須です。カンマ（,）は使用できません。");
             }else{
                 let table = document.getElementById("table");
                 let length = table.rows.length - 1;
