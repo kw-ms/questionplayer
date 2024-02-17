@@ -61,14 +61,16 @@
     <div class="content">
         <div class="menu">
             <div id="step1">
-                <h1>1.ファイルを指定する</h1>
-                <p>ファイルをアップロードしてください。</p>
+                <h1>1.ファイルを読み込む</h1>
+                <h3>ファイルを再度読み込むと、再シャッフルされます。</h3>
+                <p>ファイルを指定してください。</p>
                 <form>
                     <input id="file" type="file">
                 </form>
             </div>
             <div id="step2" style="display: none;">
                 <h1>2.問題一覧</h1>
+                <h3>問題データをシャッフルしました。</h3>
                 <div id="quests"></div>
                 <button onclick="beforeq()">前の問題</button>
                 <button onclick="nextq()">次の問題</button>
