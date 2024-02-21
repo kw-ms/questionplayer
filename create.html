@@ -101,9 +101,6 @@
         .long{
             width: 100%;
         }
-        .red{
-            color:red;
-        }
     </style>
 </head>
 <body>
@@ -117,7 +114,6 @@
             <h1>1.問題データを作成する</h1>
             <p>問題データの作成を開始します。</p>
             <p>下のテーブルに、問題の情報を追加してください。完了したら、次へをクリックしてください。</p>
-            <p class="red">問題を1問しか追加しなかった場合、問題表示画面でバグが起こるようです。現在修正を行っています。問題を1問しか追加しないという状況はないと思われますが、それまでは、2問以上問題を追加するようにして対応してください。</p>
             <table border="1" class="q" id="table">
                 <tr>
                     <th class="n">通し番号</th>
@@ -152,7 +148,11 @@
             <button onclick="finish()" class="finish">終了</button>
         </div>
         <div class="info">
-            <h1>お知らせ（2024.02.17 NEW）</h1>
+            <h1>お知らせ（2024.02.21 NEW）</h1>
+            <details>
+                <summary>新バージョンの開発について</summary>
+                <p>現行バージョンのシャッフル問題プレーヤーは、バグ・不具合が多すぎるため、現在新バージョンの開発を行っています。</p>
+            </details>
             <details>
                 <summary>レスポンシブデザインに対応しました。</summary>
                 <p>縦画面、横画面によって自動で配置が変わるようになりました。</p>
@@ -193,10 +193,8 @@
             document.getElementById("step1").style = "display:none;";
         }
         function sounyu(){
-            q = document.getElementById("q").value;
-            hint = document.getElementById("hint").value;
-            if(document.getElementById("q").value == "" || q.includes(",") || hint.includes(",")){
-                alert("問題文は入力必須です。カンマ（,）は使用できません。");
+            if(document.getElementById("q").value == ""){
+                alert("問題文は入力必須です。");
             }else{
                 let table = document.getElementById("table");
                 let length = table.rows.length - 1;
