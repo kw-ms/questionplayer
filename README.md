@@ -8,5 +8,3 @@
 > ソースコードから使用する場合は、展開後、index.htmlを任意のブラウザで開いてください。
 
 [Github Pages（https://kw-ms.github.io/questionplayer/）](https://kw-ms.github.io/questionplayer/)
-
-[ホームページ（https://questionplayer.kwms.f5.si/）](https://questionplayer.kwms.f5.si/)
